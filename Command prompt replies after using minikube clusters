@@ -1,0 +1,46 @@
+PS C:\Users\Dhrumi> minikube start
+W0928 00:59:23.057539   23332 main.go:291] Unable to resolve the current Docker CLI context "default": context "default": context not found: open C:\Users\Dhrumi\.docker\contexts\meta\37a8eec1ce19687d132fe29051dca629d164e2c4958ba141d5f4133a33f0688f\meta.json: The system cannot find the path specified.
+😄  minikube v1.31.2 on Microsoft Windows 11 Home Single Language 10.0.22621.2283 Build 22621.2283
+✨  Using the docker driver based on existing profile
+👍  Starting control plane node minikube in cluster minikube
+🚜  Pulling base image ...
+🔥  Creating docker container (CPUs=2, Memory=2200MB) ...
+🐳  Preparing Kubernetes v1.27.4 on Docker 24.0.4 ...
+    ▪ Generating certificates and keys ...
+    ▪ Booting up control plane ...
+    ▪ Configuring RBAC rules ...
+🔗  Configuring bridge CNI (Container Networking Interface) ...
+🔎  Verifying Kubernetes components...
+    ▪ Using image gcr.io/k8s-minikube/storage-provisioner:v5
+🌟  Enabled addons: default-storageclass, storage-provisioner
+🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+PS C:\Users\Dhrumi>
+PS C:\Users\Dhrumi>
+PS C:\Users\Dhrumi>
+PS C:\Users\Dhrumi>
+PS C:\Users\Dhrumi> eval $(minikube docker-env)
+W0928 01:02:57.596858   23460 main.go:291] Unable to resolve the current Docker CLI context "default": context "default": context not found: open C:\Users\Dhrumi\.docker\contexts\meta\37a8eec1ce19687d132fe29051dca629d164e2c4958ba141d5f4133a33f0688f\meta.json: The system cannot find the path specified.
+eval : The term 'eval' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a path
+was included, verify that the path is correct and try again.
+At line:1 char:1
++ eval $(minikube docker-env)
++ ~~~~
+    + CategoryInfo          : ObjectNotFound: (eval:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+PS C:\Users\Dhrumi> kubectl create deployment sample-time-app --image=dhrumikshah/sample-time-app:latest
+deployment.apps/sample-time-app created
+PS C:\Users\Dhrumi> kubectl expose deployment/sample-time-app --type=NodePort --port=8080
+service/sample-time-app exposed
+PS C:\Users\Dhrumi>
+PS C:\Users\Dhrumi> kubectl get services
+NAME              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+kubernetes        ClusterIP   10.96.0.1       <none>        443/TCP          2m53s
+sample-time-app   NodePort    10.96.221.136   <none>        8080:32218/TCP   17s
+PS C:\Users\Dhrumi> minikube service sample-time-app
+W0928 01:04:14.451389    5896 main.go:291] Unable to resolve the current Docker CLI context "default": context "default": context not found: open C:\Users\Dhrumi\.docker\contexts\meta\37a8eec1ce19687d132fe29051dca629d164e2c4958ba141d5f4133a33f0688f\meta.json: The system cannot find the path specified.
+|-----------|-----------------|-------------|---------------------------|
+| NAMESPACE |      NAME       | TARGET PORT |            URL            |
+|-----------|-----------------|-------------|---------------------------|
+| default   | sample-time-app |        8080 | http://192.168.49.2:32218 |
+|-----------|-----------------|-------------|---------------------------|
